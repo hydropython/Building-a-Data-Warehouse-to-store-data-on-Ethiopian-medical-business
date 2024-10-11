@@ -1,0 +1,21 @@
+version: 2  # Specifies the version of the dbt schema file
+
+models:
+  - name: data_transformed  # Ensure the model name matches the actual SQL model filename
+    description: "Filtered data from telegram_data_Doctors Ethiopia, excluding null messages."
+    columns:
+      - name: "Message"  # Column definition for Message
+        description: "The message content."
+        data_tests:  # Changed from tests to data_tests
+          - not_null  # Ensures that the Message column does not contain null values
+
+  - name: telegram_scapped_data  # Ensure this matches the actual SQL model filename
+    description: "Scraped data from Telegram."
+    columns: []  # You can leave it empty if no specific tests or descriptions are needed
+
+sources:
+  - name: public
+    description: "Public schema for source tables."
+    tables:
+      - name: telegram_data_Doctors_Ethiopia  # This should match your source table name
+        description: "Source table containing data from the Doctors Ethiopia Telegram channel."
